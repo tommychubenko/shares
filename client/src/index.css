@@ -11,3 +11,87 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.logo {
+  height: 80px;
+  width: 80px;
+  background-color: #EA4C4C;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation {
+  width: 70%;
+  height: 80px;
+  background-color: lightseagreen;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard{
+  padding: 15px 15px;
+  display: flex;
+  gap: 20px;
+
+}
+
+.dashboard_tickers{
+  flex-basis: 0;
+}
+
+.tickers_table {
+  border-collapse: collapse;
+
+  
+}
+
+
+.ticker_row{
+ 
+  border-bottom: 1px solid lightblue;
+  display: flex;  
+  }
+
+  .ticker_row td, th {
+    padding: 5px 15px;
+    /* border-right: 1px solid black; */
+  }
+
+  td, th {
+    width: 150px;
+    text-align: left;
+  }
+
+    
+  .ticker_name{    
+    border: 1px solid #212121;
+    border-radius: 5px;
+
+    text-align: center;
+
+  }
+
+    .ticker_del--btn {
+     background-color: white;
+     border: 1px dotted lightblue;
+    }
+
+    .ticker_del--btn:hover {
+      color: #ffffff;
+      background-color: lightcoral;
+    }
+
+ .filtered_list{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+ }
+
+ .filtered_item{
+  margin: 5px;
+ }

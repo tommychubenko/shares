@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
 
-function App() {
+import { useDispatch } from "react-redux";
+import io from "socket.io-client";
+
+import { Add } from "./components/addTicker";
+import { setTickers } from "./components/redux/store";
+import { Screen } from "./components/screen";
+
+export const socket = io("http://localhost:4000");
+
+const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    socket.emit("start");
+    socket.on("connection", () => {});
+    socket.on("disconnect", () => {});
+    socket.on("ticker", (resp) => {
+      dispatch(setTickers(resp));
+    });
+
+    return () => {
+      socket.off("connection");
+      socket.off("disconnect");
+      socket.off("ticker");
+    };
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Screen />
+      <Add />
     </div>
   );
-}
+};
 
 export default App;
