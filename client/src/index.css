@@ -13,6 +13,15 @@ code {
 }
 
 
+.appBar{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #4CEA4C;
+}
+
 .logo {
   height: 80px;
   width: 80px;
@@ -44,7 +53,8 @@ code {
 
 .tickers_table {
   border-collapse: collapse;
-
+  /* table-layout: fixed; */
+  /* max-width: 800px; */
   
 }
 
@@ -69,10 +79,26 @@ code {
   .ticker_name{    
     border: 1px solid #212121;
     border-radius: 5px;
-
+    /* width: 15%; */
     text-align: center;
-
+    /* margin-right: 35%; */
   }
+
+ /* .ticker_price{
+  width: 15%;
+ }
+
+ .ticker_change{
+  width: 15%;
+ } */
+
+ /* .ticker_change_percent {
+   width: 25%;
+ } */
+
+ /* .ticker_del--item{
+  width: 5%;
+ } */
 
     .ticker_del--btn {
      background-color: white;
@@ -95,3 +121,9 @@ code {
  .filtered_item{
   margin: 5px;
  }
+
+.speed_control{
+  display: flex;
+  gap: 10px;
+  /* justify-content: space-between; */
+}

@@ -4,7 +4,7 @@ const http = require("http");
 const io = require("socket.io");
 const cors = require("cors");
 
-const FETCH_INTERVAL = 5000;
+let FETCH_INTERVAL = 4000;
 const PORT = process.env.PORT || 4000;
 
 const tickers = [
@@ -48,19 +48,24 @@ function getQuotes(socket) {
   socket.emit("ticker", quotes);
 }
 
-function trackTickers(socket) {
+const trackTickers = (socket) => {
   // run the first time immediately
   getQuotes(socket);
 
   // every N seconds
-  const timer = setInterval(function () {
+  const timer = setInterval(() => {
     getQuotes(socket);
   }, FETCH_INTERVAL);
 
-  socket.on("disconnect", function () {
+  socket.on("disconnect", () => {
     clearInterval(timer);
   });
-}
+
+  // Clear interval and stop rendering
+  socket.on("clearInterval", () => {
+    clearInterval(timer);
+  });
+};
 
 const app = express();
 app.use(cors());
@@ -82,16 +87,28 @@ socketServer.on("connection", (socket) => {
   });
 
   // Adding new ticker
-
   socket.on("addTicker", (data) => {
     tickers.includes(data) ? socket.emit("exist", data) : tickers.push(data);
   });
 
   //Delete a ticker
-
   socket.on("delete", (data) => {
     const index = tickers.indexOf(data);
     tickers.splice(index, 1);
+  });
+
+  // Get an actual rendering speed in ms
+  socket.emit("speedInfo", FETCH_INTERVAL);
+
+  // Increase a rendering time
+  socket.on("increaseSpeed", (data) => {
+    FETCH_INTERVAL -= data;
+    socket.emit("speedInfo", FETCH_INTERVAL);
+  });
+  // Decrease a rendering time
+  socket.on("decreaseSpeed", (data) => {
+    FETCH_INTERVAL += data;
+    socket.emit("speedInfo", FETCH_INTERVAL);
   });
 });
 

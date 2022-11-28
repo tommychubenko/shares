@@ -9,7 +9,7 @@ export const Screen = () => {
     socket.emit("delete", name);
   };
 
-  const tickersFromRedux = useSelector((state) => state.tickers);
+  const tickersFromRedux = useSelector((state) => state);
 
   useEffect(() => {
     tickersFromRedux.length > 0 &&
